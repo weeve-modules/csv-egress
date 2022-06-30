@@ -39,14 +39,15 @@ Module collects incoming data and stores it to CSV file that is then transfered 
 | INGRESS_PORT          | string | Port where app is running |
 
 # Example payload
+
 ```js
 {
 	"data":[
-	{ 
+	{
     "temp": 42,
     "ts": 3187371
   },
-  { 
+  {
     "temp":53,
     "ts": 23232
   }
@@ -56,11 +57,11 @@ Module collects incoming data and stores it to CSV file that is then transfered 
 or
 
 [
-	{ 
+	{
     "temp": 42,
     "ts": 3187371
   },
-  { 
+  {
     "temp":53,
     "ts": 23232
   }
@@ -68,6 +69,7 @@ or
 
 
 ```
+
 ## Dependencies
 
 ```js
