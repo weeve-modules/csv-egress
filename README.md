@@ -9,7 +9,6 @@
 
 - [csv-egress](#csv-egress)
   - [Description](#description)
-  - [Features](#features)
   - [Environment Variables](#environment-variables)
     - [Module Specific](#module-specific)
     - [Set by the weeve Agent on the edge-node](#set-by-the-weeve-agent-on-the-edge-node)
@@ -21,14 +20,14 @@ Module collects incoming data and stores it to CSV file that is then transfered 
 
 ## Environment Variables
 
+### Module Specific
+
 | Environment Variables | type    | Description                          |
 | --------------------- | ------- | ------------------------------------ |
 | FILENAME              | string  | Name of the file                     |
 | DELIMITER             | string  | Column delimiter                     |
 | LIMIT_TYPE            | string  | Limit file by size or number of rows |
 | LIMIT_SIZE            | integer | Number of rows or bytes to limit by  |
-
-### Module Specific
 
 ### Set by the weeve Agent on the edge-node
 
