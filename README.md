@@ -1,13 +1,13 @@
-# csv-egress
+# csv-export
 
 |                |                                                                             |
 | -------------- | --------------------------------------------------------------------------- |
-| Name           | CSV Egress                                                                  |
+| Name           | CSV Export                                                                  |
 | Version        | v1.0.0                                                                      |
-| Dockerhub Link | [weevenetwork/csv-egress](https://hub.docker.com/r/weevenetwork/csv-egress) |
+| Dockerhub Link | [weevenetwork/csv-export](https://hub.docker.com/r/weevenetwork/csv-export) |
 | Authors        | Mesud Pasic                                                                 |
 
-- [csv-egress](#csv-egress)
+- [csv-export](#csv-export)
   - [Description](#description)
   - [Environment Variables](#environment-variables)
     - [Module Specific](#module-specific)
@@ -22,12 +22,13 @@ Module collects incoming data and stores it to CSV file that is then transfered 
 
 ### Module Specific
 
-| Environment Variables | type    | Description                          |
-| --------------------- | ------- | ------------------------------------ |
-| FILENAME              | string  | Name of the file                     |
-| DELIMITER             | string  | Column delimiter                     |
-| LIMIT_TYPE            | string  | Limit file by size or number of rows |
-| LIMIT_SIZE            | integer | Number of rows or bytes to limit by  |
+| Environment Variables | type    | Description                                                            |
+| --------------------- | ------- | ---------------------------------------------------------------------- |
+| FILENAME              | string  | Name of the file                                                       |
+| DELIMITER             | string  | Column delimiter                                                       |
+| LIMIT_TYPE            | string  | Limit file by size or number of rows                                   |
+| LIMIT_SIZE            | integer | Number of rows or bytes to limit by                                    |
+| INCLUDE_TIMESTAMP     | bool    | True or false to include timestamp column if not available in the data |
 
 ### Set by the weeve Agent on the edge-node
 
@@ -40,15 +41,16 @@ Module collects incoming data and stores it to CSV file that is then transfered 
 # Example payload
 
 ```js
+//payload structure is always the same, since it's coming from same source
 {
 	"data":[
 	{
     "temp": 42,
-    "ts": 3187371
+    "timestamp": 3187371
   },
   {
     "temp":53,
-    "ts": 23232
+    "timestamp": 23232
   }
   ]
 }
@@ -58,11 +60,11 @@ or
 [
 	{
     "temp": 42,
-    "ts": 3187371
+    "timestamp": 3187371
   },
   {
     "temp":53,
-    "ts": 23232
+    "timestamp": 23232
   }
 ]
 

@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-MODULE=weevenetwork/csv-egress
+MODULE=weevenetwork/csv-export
 create_image:
 	docker build -t ${MODULE} . -f image/Dockerfile
 .phony: create_image

@@ -2,16 +2,14 @@ version: 1.0.0
 name: CSVEgress
 description: Module collects incoming data and stores it to CSV file that is then transfered further to next module.
 icon: https://icons-020-demo.s3.eu-central-1.amazonaws.com/mi_CSV_Output.png
-type: output
+type: process
 tags:
   - csv
-  - egress
-  - input
 categories:
   - id: category
-    name: Egress
+    name: Process
 image:
-  name: weevenetwork/csv-egress
+  name: weevenetwork/csv-export
   tag: latest
 environments:
   - key:  FILENAME
@@ -20,6 +18,14 @@ environments:
     default: 'export.csv'
     type: string
     name: Filename
+  - key: INCLUDE_TIMESTAMP
+    description: Add column timestamp if it's not available
+    value: ''
+    default: true
+    type: enum
+    options:
+      - true
+      - false
   - key:  LIMIT_TYPE
     description: Limit file by number of rows or size
     value: ''
