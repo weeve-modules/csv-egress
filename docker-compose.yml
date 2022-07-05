@@ -1,0 +1,17 @@
+version: '1'
+services:
+  csvegress_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      MODULE_NAME: csv-export
+      MODULE_TYPE: PROCESS
+      INGRESS_HOST: 127.0.0.1
+      INGRESS_PORT: 80      
+      EGRESS_URL: http://localhost:8082
+      FILENAME: export.csv
+      DELIMITER: comma
+      LIMIT_TYPE: size
+      LIMIT_SIZE: 1024
+      INCLUDE_TIMESTAMP: true
