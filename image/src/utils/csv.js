@@ -1,7 +1,8 @@
 const { FILENAME, DELIMITER, SPLIT_TYPE, SPLIT_SIZE, INCLUDE_TIMESTAMP } = require('../config/config')
 const fs = require('fs')
 
-const BUFFER_FILENAME = `${FILENAME}.csv`
+const DIRECTORY = 'csv-export'
+const BUFFER_FILENAME = `${DIRECTORY}/${FILENAME}.csv`
 
 const processPayload = async json => {
   const data = json.data !== undefined ? json.data : json
@@ -30,6 +31,9 @@ const checkLimits = () => {
   return false
 }
 const writeData = async (data, append) => {
+  if (!fs.existsSync(DIRECTORY)) {
+    fs.mkdirSync(DIRECTORY)
+  }
   const timestamp = Date.now()
   let d = ','
   switch (DELIMITER) {
@@ -67,7 +71,7 @@ const writeData = async (data, append) => {
 }
 
 const swap = () => {
-  fs.renameSync(`${BUFFER_FILENAME}`, `${FILENAME}_${Date.now()}.csv`)
+  fs.renameSync(`${BUFFER_FILENAME}`, `${DIRECTORY}/${FILENAME}_${Date.now()}.csv`)
 }
 
 module.exports = {
