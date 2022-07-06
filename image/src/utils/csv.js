@@ -2,7 +2,8 @@ const { FILENAME, DELIMITER, SPLIT_TYPE, SPLIT_SIZE, INCLUDE_TIMESTAMP } = requi
 const fs = require('fs')
 
 const DIRECTORY = 'csv-export'
-const BUFFER_FILENAME = `${DIRECTORY}/${FILENAME}.csv`
+const EXTENSION = '.csv'
+const BUFFER_FILENAME = `${DIRECTORY}/${FILENAME}${EXTENSION}`
 
 const processPayload = async json => {
   const data = json.data !== undefined ? json.data : json
@@ -71,7 +72,7 @@ const writeData = async (data, append) => {
 }
 
 const swap = () => {
-  fs.renameSync(`${BUFFER_FILENAME}`, `${DIRECTORY}/${FILENAME}_${Date.now()}.csv`)
+  fs.renameSync(`${BUFFER_FILENAME}`, `${DIRECTORY}/${FILENAME}_${Date.now()}${EXTENSION}`)
 }
 
 module.exports = {
