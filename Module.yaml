@@ -1,21 +1,21 @@
 version: 1.0.0
-name: CSVEgress
-description: Module collects incoming data and stores it to CSV file that is then transfered further to next module.
+name: CSV Export
+description: Module collects incoming data and stores it to CSV files splitted by its size or number of rows.
 icon: https://icons-020-demo.s3.eu-central-1.amazonaws.com/mi_CSV_Output.png
-type: process
+type: output
 tags:
   - csv
 categories:
   - id: category
-    name: Process
+    name: Egress
 image:
   name: weevenetwork/csv-export
   tag: latest
 environments:
   - key:  FILENAME
-    description: Name of the file to write to
+    description: Name of the file to write to without file extension (.csv)
     value: ''
-    default: 'export.csv'
+    default: 'export'
     type: string
     name: Filename
   - key: INCLUDE_TIMESTAMP
@@ -26,7 +26,7 @@ environments:
     options:
       - true
       - false
-  - key:  LIMIT_TYPE
+  - key:  SPLIT_TYPE
     description: Limit file by number of rows or size
     value: ''
     default: size
@@ -34,7 +34,7 @@ environments:
     options:
       - size
       - rows
-  - key:  LIMIT_SIZE
+  - key:  SPLIT_SIZE
     description: Limit size of the file
     value: ''
     default: 1024
@@ -50,6 +50,9 @@ environments:
       - tab
       - semicolon
 commands: []
+mounts:
+  - container: '/csv-export'
+    host: '/csv-export'  
 document:
   ports: []
   volumes: []

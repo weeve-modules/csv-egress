@@ -16,7 +16,7 @@
 
 ## Description
 
-Module collects incoming data and stores it to CSV file that is then transfered further to next module.
+Module collects incoming data and stores it to CSV named by filename variable and timestmap like 'export_1657129367138.csv', temporary file that is used as a buffer is called by variable FILENAME like 'export.csv'. Module will generate files based on SPLIT_SIZE and SPLIT_TYPE specifications.
 
 ## Environment Variables
 
@@ -24,10 +24,10 @@ Module collects incoming data and stores it to CSV file that is then transfered 
 
 | Environment Variables | type    | Description                                                            |
 | --------------------- | ------- | ---------------------------------------------------------------------- |
-| FILENAME              | string  | Name of the file                                                       |
+| FILENAME              | string  | Name of the file, without the extension (.csv)                         |
 | DELIMITER             | string  | Column delimiter                                                       |
-| LIMIT_TYPE            | string  | Limit file by size or number of rows                                   |
-| LIMIT_SIZE            | integer | Number of rows or bytes to limit by                                    |
+| SPLIT_TYPE            | string  | Split file by size or number of rows                                   |
+| SPLIT_SIZE            | integer | Number of rows or bytes to split by                                    |
 | INCLUDE_TIMESTAMP     | bool    | True or false to include timestamp column if not available in the data |
 
 ### Set by the weeve Agent on the edge-node

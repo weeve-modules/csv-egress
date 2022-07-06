@@ -1,26 +1,30 @@
-const fetch = require('node-fetch')
-const { FILENAME, DELIMITER, LIMIT_TYPE, LIMIT_SIZE, EGRESS_URL, INCLUDE_TIMESTAMP } = require('../config/config')
+const { FILENAME, DELIMITER, SPLIT_TYPE, SPLIT_SIZE, INCLUDE_TIMESTAMP } = require('../config/config')
 const fs = require('fs')
-const { isValidURL } = require('./util')
+
+const BUFFER_FILENAME = `${FILENAME}.csv`
 
 const processPayload = async json => {
   const data = json.data !== undefined ? json.data : json
-  if (fs.existsSync(FILENAME)) {
-    if (checkLimits()) await upload()
-    await writeData(data, true)
+  if (fs.existsSync(BUFFER_FILENAME)) {
+    if (checkLimits()) {
+      swap()
+      await writeData(data, false)
+    } else {
+      await writeData(data, true)
+    }
   } else {
     await writeData(data, false)
   }
-  if (checkLimits()) await upload()
+  if (checkLimits()) swap()
 }
 
 const checkLimits = () => {
-  if (fs.existsSync(FILENAME)) {
-    const stats = fs.statSync(FILENAME)
+  if (fs.existsSync(BUFFER_FILENAME)) {
+    const stats = fs.statSync(BUFFER_FILENAME)
     const size = stats.size
-    const fileData = fs.readFileSync(FILENAME)
+    const fileData = fs.readFileSync(BUFFER_FILENAME)
     const lines = fileData.toString().split('\n').length
-    if ((LIMIT_TYPE === 'size' && size > LIMIT_SIZE) || (LIMIT_TYPE === 'rows' && lines > LIMIT_SIZE)) return true
+    if ((SPLIT_TYPE === 'size' && size > SPLIT_SIZE) || (SPLIT_TYPE === 'rows' && lines > SPLIT_SIZE)) return true
     else return false
   }
   return false
@@ -39,7 +43,7 @@ const writeData = async (data, append) => {
       d = ';'
       break
   }
-  const logger = fs.createWriteStream(FILENAME, {
+  const logger = fs.createWriteStream(BUFFER_FILENAME, {
     flags: 'a',
   })
   const writeLine = line => logger.write(`${line}\n`)
@@ -62,28 +66,8 @@ const writeData = async (data, append) => {
   logger.end()
 }
 
-const upload = async () => {
-  const readStream = fs.createReadStream(FILENAME)
-  const stats = fs.statSync(FILENAME)
-  const size = stats.size
-  if (isValidURL(EGRESS_URL)) {
-    const res = await fetch(EGRESS_URL, {
-      method: 'POST',
-      headers: {
-        'Content-length': size,
-      },
-      body: readStream,
-    })
-    if (res.ok) {
-      console.log('File uploaded successfully.')
-      // delete file after upload is done
-      fs.unlinkSync(FILENAME)
-    } else {
-      console.log('Failed uploading the file.')
-    }
-  } else {
-    console.log('EGRESS URL not specified.')
-  }
+const swap = () => {
+  fs.renameSync(`${BUFFER_FILENAME}`, `${FILENAME}_${Date.now()}.csv`)
 }
 
 module.exports = {
