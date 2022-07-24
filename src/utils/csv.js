@@ -1,7 +1,7 @@
 const { FILENAME, DELIMITER, SPLIT_TYPE, SPLIT_SIZE, INCLUDE_TIMESTAMP } = require('../config/config')
 const fs = require('fs')
 
-const DIRECTORY = 'csv-export'
+const DIRECTORY = 'data'
 const EXTENSION = '.csv'
 const BUFFER_FILENAME = `${DIRECTORY}/${FILENAME}${EXTENSION}`
 

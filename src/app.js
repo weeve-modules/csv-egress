@@ -46,7 +46,7 @@ app.post('/', async (req, res) => {
   processPayload(json)
   return res.status(200).json({
     status: true,
-    message: `Payload sent for processing`,
+    message: `Payload sent for export`,
   })
 })
 
