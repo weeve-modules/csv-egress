@@ -6,11 +6,11 @@ const expressWinston = require('express-winston')
 const { processPayload } = require('./utils/csv')
 const { formatTimeDiff } = require('./utils/util')
 
-//initialization
+// initialization
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-//logger
+// logger
 app.use(
   expressWinston.logger({
     transports: [
@@ -32,7 +32,7 @@ app.use(
   })
 )
 const startTime = Date.now()
-//health check
+// health check
 app.get('/health', async (req, res) => {
   res.json({
     serverStatus: 'Running',
@@ -40,22 +40,22 @@ app.get('/health', async (req, res) => {
     module: MODULE_NAME,
   })
 })
-//main post listener
+// main post listener
 app.post('/', async (req, res) => {
   const json = req.body
   processPayload(json)
   return res.status(200).json({
     status: true,
-    message: `Payload sent for processing`,
+    message: `Payload sent for export`,
   })
 })
 
-//handle exceptions
+// handle exceptions
 app.use(async (err, req, res, next) => {
   if (res.headersSent) {
     return next(err)
   }
-  let errCode = err.status || 401
+  const errCode = err.status || 401
   res.status(errCode).send({
     status: false,
     message: err.message,

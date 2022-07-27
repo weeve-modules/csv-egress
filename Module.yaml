@@ -1,60 +1,61 @@
-version: 1.0.0
-name: CSVEgress
-description: Module collects incoming data and stores it to CSV file that is then transfered further to next module.
-icon: https://icons-020-demo.s3.eu-central-1.amazonaws.com/mi_CSV_Output.png
-type: process
-tags:
-  - csv
-categories:
-  - id: category
-    name: Process
+displayName: 'CSV Export'       # Display name for the module that will be displayed in the UI.
+moduleName: 'csv-export'        # Module name that will be used to reference the module, and uniquely identify the module and their versions.
+description: 'Module collects incoming data and stores it to CSV files splitted by its size or number of rows.'       # Module description that will be displayed in the UI.
+versionName: 'v1.0.0'                    # Module version name that will be used to reference the module version, and uniquely identify the module version with a common name.
+isPublic: true                          # Boolean value that indicates if the module is Public or Private.
+categories:                             # Array of category that will be used to group the module in the UI.
+  - 'Export'
+type: 'Output'      # Module type (Input, Processing, Output) that will be used to group the module in the UI.
 image:
-  name: weevenetwork/csv-export
-  tag: latest
-environments:
-  - key:  FILENAME
-    description: Name of the file to write to
-    value: ''
-    default: 'export.csv'
-    type: string
-    name: Filename
-  - key: INCLUDE_TIMESTAMP
+  name: 'weevenetwork/csv-export'     # Image name from the docker registry.
+  tag: 'v1.0.0'                               # Image tag from the docker registry.
+  homepage: 'https://hub.docker.com/weevenetwork/csv-export'      # Image homepage from the docker registry.
+repository: 'https://github.com/weeve-modules/csv-export'     # Repository URL to source code.
+envs:                                   # Array of environment variables that will be used to configure the module. Also used to show related fields on the UI.
+  - name: Filename
+    key:  FILENAME
+    description: Name of the file to write to without file extension (.csv)
+    value: 'export'
+    type: 'text'
+  - name: Include timestamp column
+    key: INCLUDE_TIMESTAMP
     description: Add column timestamp if it's not available
-    value: ''
-    default: true
-    type: enum
+    value: 'true'
+    type: 'select'
     options:
       - true
       - false
-  - key:  LIMIT_TYPE
+  - name: Split type
+    key:  SPLIT_TYPE
     description: Limit file by number of rows or size
-    value: ''
-    default: size
-    type: enum
+    value: 'size'
+    type: 'select'
     options:
       - size
       - rows
-  - key:  LIMIT_SIZE
-    description: Limit size of the file
-    value: ''
-    default: 1024
+  - name: Split limit
+    key:  SPLIT_SIZE
+    description: Limit size of the file by file size or row number
+    value: '1024'
     type: integer
-    name: File size
-  - key:  DELIMITER
+  - name: Column delimiter
+    key:  DELIMITER
     description: Delimiter for columns
-    value: ''
-    default: comma
-    type: enum
+    value: 'comma'
+    type: 'select'
     options:
       - comma
       - tab
       - semicolon
-commands: []
-document:
-  ports: []
-  volumes: []
-  restart_policy:
-    condition: on-failure
-    delay: 10s
-    max_attempts: 3
-    window: 120s
+ports:                                  # Array of ports that will be exposed by the module.
+  - container: 8080                     # Port number from the container.
+    host: 8080                          # Port number to map on the host.
+mounts:
+  - container: '/data'                  # Mount path from the container.
+    host: '/data'                       # Mount path to map on the host.
+tags:                                   # Array of tags.
+  - 'NodeJS'
+  - 'Output'
+  - 'Export'
+  - 'Boilerplate 1.0.0'
+icon: 'https://icons-020-demo.s3.eu-central-1.amazonaws.com/mi_CSV_Output.png'    # Icon URL that will be displayed in the UI.
