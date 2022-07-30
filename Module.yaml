@@ -17,6 +17,8 @@ envs:                                   # Array of environment variables that wi
     description: Name of the file to write to without file extension (.csv)
     value: 'export'
     type: 'text'
+    options: []
+    dependencies: []
   - name: Include timestamp column
     key: INCLUDE_TIMESTAMP
     description: Add column timestamp if it's not available
@@ -25,6 +27,7 @@ envs:                                   # Array of environment variables that wi
     options:
       - true
       - false
+    dependencies: []
   - name: Split type
     key:  SPLIT_TYPE
     description: Limit file by number of rows or size
@@ -33,11 +36,14 @@ envs:                                   # Array of environment variables that wi
     options:
       - size
       - rows
+    dependencies: []
   - name: Split limit
     key:  SPLIT_SIZE
     description: Limit size of the file by file size or row number
     value: '1024'
     type: 'number'
+    options: []
+    dependencies: []
   - name: Column delimiter
     key:  DELIMITER
     description: Delimiter for columns
@@ -47,6 +53,7 @@ envs:                                   # Array of environment variables that wi
       - comma
       - tab
       - semicolon
+    dependencies: []
 ports:                                  # Array of ports that will be exposed by the module.
   - container: 8080                     # Port number from the container.
     host: 8080                          # Port number to map on the host.
