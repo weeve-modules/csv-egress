@@ -4,7 +4,7 @@
 | -------------- | --------------------------------------------------------------------------- |
 | Name           | CSV Export                                                                  |
 | Version        | v1.0.0                                                                      |
-| Dockerhub Link | [weevenetwork/csv-export](https://hub.docker.com/r/weevenetwork/csv-export) |
+| DockerHub | [weevenetwork/csv-export](https://hub.docker.com/r/weevenetwork/csv-export) |
 | Authors        | Mesud Pasic                                                                 |
 
 - [csv-export](#csv-export)
@@ -35,8 +35,10 @@ Module collects incoming data and stores it to CSV named by filename variable an
 | Environment Variables | type   | Description               |
 | --------------------- | ------ | ------------------------- |
 | MODULE_NAME           | string | Name of the module        |
+| MODULE_TYPE           | string | Type of the module (Input, Processing, Output)    |
 | INGRESS_HOST          | string | Host where app is running |
 | INGRESS_PORT          | string | Port where app is running |
+| EGRESS_URLS           | string | HTTP ReST endpoint for the next module            |
 
 # Example payload
 
