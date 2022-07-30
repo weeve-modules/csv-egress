@@ -38,7 +38,6 @@ Module collects incoming data and stores it to CSV named by filename variable an
 | MODULE_TYPE           | string | Type of the module (Input, Processing, Output)    |
 | INGRESS_HOST          | string | Host where app is running |
 | INGRESS_PORT          | string | Port where app is running |
-| EGRESS_URLS           | string | HTTP ReST endpoint for the next module            |
 
 # Example payload
 
