@@ -9,7 +9,7 @@ type: 'Output'      # Module type (Input, Processing, Output) that will be used 
 image:
   name: 'weevenetwork/csv-export'     # Image name from the docker registry.
   tag: 'v1.0.0'                               # Image tag from the docker registry.
-  homepage: 'https://hub.docker.com/weevenetwork/csv-export'      # Image homepage from the docker registry.
+  homepage: 'https://hub.docker.com/r/weevenetwork/csv-export'      # Image homepage from the docker registry.
 repository: 'https://github.com/weeve-modules/csv-export'     # Repository URL to source code.
 envs:                                   # Array of environment variables that will be used to configure the module. Also used to show related fields on the UI.
   - name: Filename
