@@ -25,8 +25,8 @@ envs:                                   # Array of environment variables that wi
     value: 'true'
     type: 'select'
     options:
-      - true
-      - false
+      - 'true'
+      - 'false'
     dependencies: []
   - name: Split type
     key:  SPLIT_TYPE
@@ -40,7 +40,7 @@ envs:                                   # Array of environment variables that wi
   - name: Split limit
     key:  SPLIT_SIZE
     description: Limit size of the file by file size or row number
-    value: '1024'
+    value: 1024
     type: 'number'
     options: []
     dependencies: []
@@ -54,6 +54,11 @@ envs:                                   # Array of environment variables that wi
       - tab
       - semicolon
     dependencies: []
+ports: []
+envPorts: []
+envMounts: []
+devices: []
+envDevices: []
 mounts:
   - container: '/data'                  # Mount path from the container.
     host: '/data'                       # Mount path to map on the host.
