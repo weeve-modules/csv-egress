@@ -3,7 +3,7 @@
 |                |                                                                             |
 | -------------- | --------------------------------------------------------------------------- |
 | Name           | CSV Export                                                                  |
-| Version        | v1.0.0                                                                      |
+| Version        | v1.0.1                                                                      |
 | DockerHub | [weevenetwork/csv-export](https://hub.docker.com/r/weevenetwork/csv-export) |
 | Authors        | Mesud Pasic                                                                 |
 
