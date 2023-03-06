@@ -40,7 +40,7 @@ envs:                                   # Array of environment variables that wi
   - name: Split limit
     key:  SPLIT_SIZE
     description: Limit size of the file by file size or row number
-    value: 1024
+    value: '1024'
     type: 'number'
     options: []
     dependencies: []
