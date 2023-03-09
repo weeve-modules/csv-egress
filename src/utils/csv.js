@@ -1,9 +1,9 @@
-const { FILENAME, DELIMITER, SPLIT_TYPE, SPLIT_SIZE, INCLUDE_TIMESTAMP } = require('../config/config')
+const { FILENAME, DIR_PATH, DELIMITER, SPLIT_TYPE, SPLIT_SIZE, INCLUDE_TIMESTAMP } = require('../config/config')
 const fs = require('fs')
+const path = require('path')
 
-const DIRECTORY = 'data'
 const EXTENSION = '.csv'
-const BUFFER_FILENAME = `${DIRECTORY}/${FILENAME}${EXTENSION}`
+const BUFFER_FILENAME = path.join(DIR_PATH, FILENAME+EXTENSION)
 
 const processPayload = async json => {
   const data = json.data !== undefined ? json.data : json
@@ -32,9 +32,6 @@ const checkLimits = () => {
   return false
 }
 const writeData = async (data, append) => {
-  if (!fs.existsSync(DIRECTORY)) {
-    fs.mkdirSync(DIRECTORY)
-  }
   const timestamp = Date.now()
   let d = ','
   switch (DELIMITER) {
@@ -52,7 +49,8 @@ const writeData = async (data, append) => {
     flags: 'a',
   })
   const writeLine = line => logger.write(`${line}\n`)
-  const keys = Object.keys(data[0])
+  const dataArray = Array.isArray(data) ? data : [data] // wrap scalar in array
+  const keys = Object.keys(dataArray[0])
   let l = ''
   if (!keys.includes('timestamp')) l = `timestamp${d}`
   if (!append) {
@@ -62,9 +60,9 @@ const writeData = async (data, append) => {
     writeLine(l)
   }
   l = ''
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < dataArray.length; i++) {
     if (INCLUDE_TIMESTAMP && !keys.includes('timestamp')) l += `${timestamp}${d}`
-    for (let k = 0; k < keys.length; k++) l += `${data[i][keys[k]]}${d}`
+    for (let k = 0; k < keys.length; k++) l += `${dataArray[i][keys[k]]}${d}`
     writeLine(l)
     l = ''
   }
@@ -72,7 +70,7 @@ const writeData = async (data, append) => {
 }
 
 const swap = () => {
-  fs.renameSync(`${BUFFER_FILENAME}`, `${DIRECTORY}/${FILENAME}_${Date.now()}${EXTENSION}`)
+  fs.renameSync(`${BUFFER_FILENAME}`, path.join(DIR_PATH, `${FILENAME}_${Date.now()}${EXTENSION}`))
 }
 
 module.exports = {
