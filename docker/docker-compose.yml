@@ -9,7 +9,11 @@ services:
       MODULE_TYPE: "Output"
       INGRESS_HOST: "0.0.0.0"
       INGRESS_PORT: "80"
-      PROFILE_IDS: ''
-      MATCHED_URL: ''
+      FILENAME: "export"
+      DIR_PATH: "/data"
+      DELIMITER: "comma"
+      SPLIT_TYPE: "size"
+      SPLIT_SIZE: "1024"
+      INCLUDE_TIMESTAMP: "true"
     ports:
       - 80:80

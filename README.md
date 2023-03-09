@@ -1,17 +1,18 @@
 # csv-export
 
-|                |                                                                             |
-| -------------- | --------------------------------------------------------------------------- |
-| Name           | CSV Export                                                                  |
-| Version        | v1.0.1                                                                      |
+|           |                                                                             |
+| --------- | --------------------------------------------------------------------------- |
+| Name      | CSV Export                                                                  |
+| Version   | v2.0.0                                                                      |
 | DockerHub | [weevenetwork/csv-export](https://hub.docker.com/r/weevenetwork/csv-export) |
-| Authors        | Mesud Pasic                                                                 |
+| Authors   | Mesud Pasic                                                                 |
 
 - [csv-export](#csv-export)
   - [Description](#description)
   - [Environment Variables](#environment-variables)
     - [Module Specific](#module-specific)
     - [Set by the weeve Agent on the edge-node](#set-by-the-weeve-agent-on-the-edge-node)
+- [Example payload](#example-payload)
   - [Dependencies](#dependencies)
 
 ## Description
@@ -25,6 +26,7 @@ Module collects incoming data and stores it to CSV named by filename variable an
 | Environment Variables | type    | Description                                                            |
 | --------------------- | ------- | ---------------------------------------------------------------------- |
 | FILENAME              | string  | Name of the file, without the extension (.csv)                         |
+| DIR_PATH              | string  | Absolute path to the directory where the file will be written to       |
 | DELIMITER             | string  | Column delimiter                                                       |
 | SPLIT_TYPE            | string  | Split file by size or number of rows                                   |
 | SPLIT_SIZE            | integer | Number of rows or bytes to split by                                    |
@@ -32,32 +34,43 @@ Module collects incoming data and stores it to CSV named by filename variable an
 
 ### Set by the weeve Agent on the edge-node
 
-| Environment Variables | type   | Description               |
-| --------------------- | ------ | ------------------------- |
-| MODULE_NAME           | string | Name of the module        |
-| MODULE_TYPE           | string | Type of the module (Input, Processing, Output)    |
-| INGRESS_HOST          | string | Host where app is running |
-| INGRESS_PORT          | string | Port where app is running |
+| Environment Variables | type   | Description                                    |
+| --------------------- | ------ | ---------------------------------------------- |
+| MODULE_NAME           | string | Name of the module                             |
+| MODULE_TYPE           | string | Type of the module (Input, Processing, Output) |
+| INGRESS_HOST          | string | Host where app is running                      |
+| INGRESS_PORT          | string | Port where app is running                      |
 
 # Example payload
 
-```js
+```json
 //payload structure is always the same, since it's coming from same source
 {
 	"data":[
-	{
-    "temp": 42,
-    "timestamp": 3187371
-  },
-  {
-    "temp":53,
-    "timestamp": 23232
-  }
+    {
+      "temp": 42,
+      "timestamp": 3187371
+    },
+    {
+      "temp":53,
+      "timestamp": 23232
+    }
   ]
 }
+```
 
 or
 
+```json
+{
+  "temp": 42,
+  "timestamp": 3187371
+}
+```
+
+or
+
+```json
 [
 	{
     "temp": 42,
@@ -68,8 +81,6 @@ or
     "timestamp": 23232
   }
 ]
-
-
 ```
 
 ## Dependencies

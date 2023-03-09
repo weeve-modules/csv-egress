@@ -1,14 +1,14 @@
 displayName: 'CSV Export'       # Display name for the module that will be displayed in the UI.
 moduleName: 'csv-export'        # Module name that will be used to reference the module, and uniquely identify the module and their versions.
 description: 'Module collects incoming data and stores it to CSV files splitted by its size or number of rows.'       # Module description that will be displayed in the UI.
-versionName: 'v1.0.1'                    # Module version name that will be used to reference the module version, and uniquely identify the module version with a common name.
+versionName: 'v2.0.0'                    # Module version name that will be used to reference the module version, and uniquely identify the module version with a common name.
 isPublic: true                          # Boolean value that indicates if the module is Public or Private.
 categories:                             # Array of category that will be used to group the module in the UI.
   - 'Egress'
 type: 'Output'      # Module type (Input, Processing, Output) that will be used to group the module in the UI.
 image:
   name: 'weevenetwork/csv-export'     # Image name from the docker registry.
-  tag: 'v1.0.1'                               # Image tag from the docker registry.
+  tag: 'v2.0.0'                               # Image tag from the docker registry.
   homepage: 'https://hub.docker.com/r/weevenetwork/csv-export'      # Image homepage from the docker registry.
 repository: 'https://github.com/weeve-modules/csv-export'     # Repository URL to source code.
 envs:                                   # Array of environment variables that will be used to configure the module. Also used to show related fields on the UI.
@@ -16,6 +16,13 @@ envs:                                   # Array of environment variables that wi
     key:  FILENAME
     description: Name of the file to write to without file extension (.csv)
     value: 'export'
+    type: 'text'
+    options: []
+    dependencies: []
+  - name: Directory Path
+    key:  DIR_PATH
+    description: Absolute path to the directory where the file will be written to
+    value: '/data'
     type: 'text'
     options: []
     dependencies: []
@@ -56,12 +63,11 @@ envs:                                   # Array of environment variables that wi
     dependencies: []
 ports: []
 envPorts: []
-envMounts: []
+mounts: []
+envMounts:
+  - DIR_PATH
 devices: []
 envDevices: []
-mounts:
-  - container: '/data'                  # Mount path from the container.
-    host: '/data'                       # Mount path to map on the host.
 tags:                                   # Array of tags.
   - 'CSV'
   - 'Output'
